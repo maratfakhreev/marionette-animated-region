@@ -4,7 +4,7 @@
   "description": "",
   "main": "lib/marionette-animated-region.js",
   "scripts": {
-    "compile": "babel --presets es2015,stage-0 -d lib/ src/",
+    "compile": "babel --presets es2015 -d lib/ src/",
     "prepublish": "npm run compile"
   },
   "author": "Marat Fakhreev",
@@ -24,7 +24,6 @@
   "devDependencies": {
     "babel-cli": "^6.2.0",
     "babel-preset-es2015": "^6.1.18",
-    "babel-preset-stage-0": "^6.1.18",
     "chai": "^3.4.1",
     "mocha": "^2.3.4"
   }

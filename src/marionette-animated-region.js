@@ -2,10 +2,11 @@
   if (typeof exports !== 'undefined') {
     // Define as CommonJS export:
     module.exports = factory(
-      require('jquery'),
+      window.jQuery = window.$ = require('jquery'),
       require('backbone'),
-      require('marionette'),
-      require('velocity')
+      require('backbone.marionette'),
+      require('../node_modules/velocity-animate/velocity'),
+      require('../node_modules/velocity-animate/velocity.ui')
     );
   }
   else if (typeof define === 'function' && define.amd) {
@@ -13,14 +14,15 @@
     define([
       'jquery',
       'backbone',
-      'marionette',
-      'velocity'
+      'backbone.marionette',
+      '../node_modules/velocity-animate/velocity',
+      '../node_modules/velocity-animate/velocity.ui'
     ], factory);
   }
   else {
     // Browser:
     window.AnimatedRegion = factory(
-      window.$,
+      window.jQuery = window.$,
       window.Backbone,
       window.Marionette
     );
