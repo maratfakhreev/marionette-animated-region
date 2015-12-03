@@ -1,4 +1,4 @@
-((root, factory) => {
+((factory) => {
   if (typeof exports !== 'undefined') {
     // Define as CommonJS export:
     module.exports = factory(
@@ -19,14 +19,13 @@
   }
   else {
     // Browser:
-    factory(
-      root.$,
-      root.Backbone,
-      root.Marionette
+    window.AnimatedRegion = factory(
+      window.$,
+      window.Backbone,
+      window.Marionette
     );
   }
-})(this, ($, Backbone, Marionette) => {
-
+})(($, Backbone, Marionette) => {
   function iterateOverAnimations(animations, callback) {
     for (let i = 0, length = animations.length - 1; i <= length; i++) {
       const animation = animations[i];
