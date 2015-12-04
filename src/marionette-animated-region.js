@@ -1,5 +1,5 @@
 ((factory) => {
-  if (typeof exports !== 'undefined') {
+  if (typeof require === 'function' && typeof exports === 'object') {
     // Define as CommonJS export:
     module.exports = factory(
       window.jQuery = window.$ = require('jquery'),
@@ -29,6 +29,8 @@
   }
 })(($, Backbone, Marionette) => {
   function iterateOverAnimations(animations, callback) {
+    if (!animations.length) throw new Error('You must define showAnimation or hideAnimation objects. Ex: exRegion: { animation: { showAnimation: [{ //properties and options }, { ... }] } }');
+
     for (let i = 0, length = animations.length - 1; i <= length; i++) {
       const animation = animations[i];
 
@@ -100,7 +102,7 @@
     }
   }
 
-  Object.assign(AnimatedRegion, Backbone.Events);
+  _.extend(AnimatedRegion, Backbone.Events);
 
   return AnimatedRegion;
 });
