@@ -4,8 +4,9 @@
   "description": "",
   "main": "lib/marionette-animated-region.js",
   "scripts": {
-    "test": "mocha-phantomjs test/index.html",
     "compile": "babel --presets es2015 -d lib/ src/",
+    "pretest": "npm run compile",
+    "test": "mocha-phantomjs test/index.html",
     "prepublish": "npm run compile"
   },
   "author": "Marat Fakhreev",
