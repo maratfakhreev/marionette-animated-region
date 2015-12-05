@@ -1,21 +1,39 @@
 {
   "name": "marionette-animated-region",
-  "version": "1.0.0",
-  "description": "Animared region for Backbone.Marionette views based on Velocity.js animation library",
+  "description": "Backbone.Marionette animated region based on Velocity.js animation library",
+  "version": "1.0.1",
   "main": "lib/marionette-animated-region.js",
+  "author": {
+    "name": "Marat Fakhreev",
+    "email": "marat.fakhreev@gmail.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "backbone",
+    "marionette",
+    "region",
+    "plugin",
+    "animation",
+    "animated",
+    "transition",
+    "smooth",
+    "velocity",
+    "velocityjs"
+  ],
+  "github": "https://github.com/maratfakhreev/marionette-animated-region",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maratfakhreev/marionette-animated-region.git"
+  },
+  "bugs": {
+    "url": "https://github.com/maratfakhreev/marionette-animated-region/issues"
+  },
   "scripts": {
     "compile": "babel --presets es2015 -d lib/ src/",
     "pretest": "npm run compile",
     "test": "mocha-phantomjs test/index.html",
     "prepublish": "npm run compile"
   },
-  "author": "Marat Fakhreev",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/maratfakhreev/marionette-animated-region.git"
-  },
-  "github": "https://github.com/maratfakhreev/marionette-animated-region",
   "dependencies": {
     "backbone": "^1.2.3",
     "backbone.marionette": "^2.4.4",
