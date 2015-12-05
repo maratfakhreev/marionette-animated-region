@@ -124,7 +124,7 @@ describe('layoutView', function() {
       this.layoutView.render();
     });
 
-    it('should trigger region:show', function(done) {
+    it('should trigger region:removed', function(done) {
       var self = this;
 
       this.layoutView.exampleRegion.show(new self.ItemView());

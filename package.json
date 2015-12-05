@@ -1,7 +1,7 @@
 {
   "name": "marionette-animated-region",
   "version": "1.0.0",
-  "description": "",
+  "description": "Animared region for Backbone.Marionette views based on Velocity.js animation library",
   "main": "lib/marionette-animated-region.js",
   "scripts": {
     "compile": "babel --presets es2015 -d lib/ src/",
