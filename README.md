@@ -1,4 +1,4 @@
-## Backbone.Marionette animated region based on Velocity.js
+## Backbone.Marionette animated region based on Velocity.js animation library
 
 Animared region for Backbone.Marionette views based on Velocity.js animation library
 

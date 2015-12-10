@@ -4,16 +4,18 @@
     <title>Examples</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../node_modules/mocha/mocha.css" />
     <style type="text/css">
       .example {
         padding: 30px;
+        padding-top: 0px;
       }
     </style>
   </head>
   <body>
     <div id="example_one"></div>
     <div id="example_two"></div>
+    <div id="example_three"></div>
+
     <script src="../node_modules/jquery/dist/jquery.js"></script>
     <script src="../node_modules/underscore/underscore.js"></script>
     <script src="../node_modules/backbone/backbone.js"></script>
@@ -30,9 +32,6 @@
         <p>
           Church-key literally irony you probably haven't heard of them pour-over. DIY banjo chicharrones, viral paleo messenger bag pitchfork. Craft beer normcore franzen, lo-fi etsy kogi sriracha letterpress squid plaid venmo organic hashtag fanny pack kale chips. Vegan XOXO poutine wayfarers aesthetic stumptown. Roof party banh mi hammock distillery street art. Meggings knausgaard authentic kogi pabst. Chambray messenger bag everyday carry church-key.
         </p>
-        <p>
-          Heirloom tattooed scenester YOLO leggings normcore. 8-bit lo-fi distillery, street art forage beard mixtape waistcoat. Tousled mumblecore asymmetrical gluten-free 8-bit tacos. Taxidermy offal portland pinterest direct trade, bicycle rights flexitarian mixtape skateboard cray artisan pickled typewriter fanny pack. Meh readymade helvetica, kitsch irony wolf roof party tofu. Umami actually offal VHS. Beard helvetica tote bag, knausgaard salvia vegan hoodie lumbersexual kombucha brunch DIY blue bottle fixie 3 wolf moon retro.
-        </p>
       </div>
     </script>
 
@@ -41,7 +40,7 @@
       </div>
     </script>
 
-    <script>
+    <script type="text/javascript">
       var ItemView = Marionette.ItemView.extend({
         template: _.template($('#item_template').html(), {}),
       });
@@ -50,13 +49,12 @@
         template: _.template($('#layout_template').html(), {}),
 
         onRender: function() {
-          var self = this;
-
-          self.exampleRegion.show(new ItemView());
-          _.delay(function() { self.exampleRegion.empty(); }, 2000);
+          _.delay(_.bind(function() { this.exampleRegion.empty(); }, this), 2000);
         }
       });
+    </script>
 
+    <script type="text/javascript">
       var ExampleOneView = LayoutView.extend({
         regions: {
           exampleRegion: {
@@ -81,7 +79,9 @@
       });
 
       new ExampleOneView({ el: $('#example_one') }).render();
+    </script>
 
+    <script type="text/javascript">
       var ExampleTwoView = LayoutView.extend({
         regions: {
           exampleRegion: {
@@ -106,6 +106,51 @@
       });
 
       new ExampleTwoView({ el: $('#example_two') }).render();
+    </script>
+
+    <script type="text/javascript">
+      var ExampleThreeView = LayoutView.extend({
+        regions: {
+          exampleRegion: {
+            selector: '#example_region',
+            regionClass: AnimatedRegion,
+            name: 'Region with listeners',
+            animation: {
+              showAnimation: [
+                {
+                  properties: 'transition.slideRightBigIn',
+                  options: { stagger: 500 }
+                },
+                {
+                  properties: {
+                    rotateZ: '180deg'
+                  }
+                }
+              ],
+              hideAnimation: [
+                {
+                  properties: 'transition.slideLeftBigOut',
+                  options: { stagger: 500 }
+                }
+              ]
+            }
+          }
+        },
+
+        initialize: function() {
+          this.listenTo(AnimatedRegion, 'region:shown', function(region) {
+            if (region.options.name) {
+              console.log(region.options.name + ' has been rendered');
+            }
+          });
+
+          this.listenTo(AnimatedRegion, 'region:removed', function(region) {
+            console.log(region);
+          });
+        }
+      });
+
+      new ExampleThreeView({ el: $('#example_three') }).render();
     </script>
   </body>
 </html>
