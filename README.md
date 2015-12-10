@@ -136,4 +136,4 @@ Marionette-animated-region includes show and destroy callbacks. In some situatio
 * The Marionette team for [backbone.marionette.js](http://marionettejs.com)
 * The Julian Shapiro and Velocity team for [velocity.js](http://julian.com/research/velocity/)
 
-** Working examples you can find [here](https://github.com/maratfakhreev/marionette-animated-region/tree/master/examples) **
+**Working examples you can find [here](https://github.com/maratfakhreev/marionette-animated-region/tree/master/examples)**
