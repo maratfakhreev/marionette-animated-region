@@ -1,5 +1,7 @@
 # Changelog
 
 ## Unreleased
+
+## 1.0.1
 - Upgrade package.json
-- Add README.md
+- Updated README.md
