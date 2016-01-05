@@ -3,31 +3,34 @@
     // Define as CommonJS export:
     module.exports = factory(
       window.jQuery = window.$ = require('jquery'),
+      require('underscore'),
       require('backbone'),
       require('backbone.marionette'),
-      require('../node_modules/velocity-animate/velocity'),
-      require('../node_modules/velocity-animate/velocity.ui')
+      require('../../velocity-animate/velocity'),
+      require('../../velocity-animate/velocity.ui')
     );
   }
   else if (typeof define === 'function' && define.amd) {
     // Define as AMD:
     define([
       'jquery',
+      'underscore',
       'backbone',
       'backbone.marionette',
-      '../node_modules/velocity-animate/velocity',
-      '../node_modules/velocity-animate/velocity.ui'
+      '../../velocity-animate/velocity',
+      '../../velocity-animate/velocity.ui'
     ], factory);
   }
   else {
     // Browser:
     window.AnimatedRegion = factory(
       window.jQuery = window.$,
+      window._,
       window.Backbone,
       window.Marionette
     );
   }
-})(($, Backbone, Marionette) => {
+})(($, _, Backbone, Marionette) => {
   function iterateOverAnimations(animations, callback) {
     if (!animations.length) throw new Error('You must define showAnimation or hideAnimation objects. Ex: exRegion: { animation: { showAnimation: [{ //properties and options }, { ... }] } }');
 
