@@ -33,80 +33,80 @@ var AnimatedRegion = require('marionette-animated-region');
 The main goodies that Backbone.Marionette animated region uses only region properties and can work as simple Marionette region if you do not define animation. So it's flexible, fast and maximum safety.
 
 ```javascript
-  var LayoutView = Marionette.LayoutView.extend({
-    regions: {
-      animatedRegion: {
-        selector: '#region_selector',
-        regionClass: AnimatedRegion,
-        animation: {
-          showAnimation: [...],
-          hideAnimation: [...]
-        }
+var LayoutView = Marionette.LayoutView.extend({
+  regions: {
+    animatedRegion: {
+      selector: '#region_selector',
+      regionClass: AnimatedRegion,
+      animation: {
+        showAnimation: [...],
+        hideAnimation: [...]
       }
     }
-  });
+  }
+});
 ```
 
 To use animation you must define `animation` object. It can includes two arrays of effects, you can define only showAnimation or hideAnimation or both. Each element of the array should be [Velocity.js](http://velocityjs.org) animation object.
 
 **Basic example:**
 ```javascript
-  var LayoutView = Marionette.LayoutView.extend({
-    //...
+var LayoutView = Marionette.LayoutView.extend({
+  //...
 
-    regions: {
-      exampleRegion: {
-        selector: '#region_selector',
-        regionClass: AnimatedRegion,
-        animation: {
-          showAnimation: [
-            {
-              properties: 'transition.slideDownBigIn',
-              options: { stagger: 300 }
-            }
-          ],
-          hideAnimation: [
-            {
-              properties: 'transition.slideUpBigOut',
-              options: { stagger: 300 }
-            }
-          ]
-        }
+  regions: {
+    exampleRegion: {
+      selector: '#region_selector',
+      regionClass: AnimatedRegion,
+      animation: {
+        showAnimation: [
+          {
+            properties: 'transition.slideDownBigIn',
+            options: { stagger: 300 }
+          }
+        ],
+        hideAnimation: [
+          {
+            properties: 'transition.slideUpBigOut',
+            options: { stagger: 300 }
+          }
+        ]
       }
-    },
-
-    onRender: function() {
-      // this view will render with animation
-      this.animatedRegion.show(new Marionette.ItemView());
-      // and after 2 second remove with animation
-      _.delay(_.bind(function() { this.exampleRegion.empty(); }, this), 2000);
     }
-  });
+  },
 
-  new LayoutView({ el: $('#layout_view') }).render();
+  onRender: function() {
+    // this view will render with animation
+    this.animatedRegion.show(new Marionette.ItemView());
+    // and after 2 second remove with animation
+    _.delay(_.bind(function() { this.exampleRegion.empty(); }, this), 2000);
+  }
+});
+
+new LayoutView({ el: $('#layout_view') }).render();
 ```
 
 It's possible to determine set of effects, like:
 ```javascript
+//...
+showAnimation: [
+  {
+    properties: 'transition.slideRightBigIn',
+    options: { stagger: 500 }
+  },
+  {
+    properties: {
+      rotateZ: '180deg'
+    }
+  },
+  {
+    properties: {
+      rotateZ: '90deg'
+    }
+  },
   //...
-  showAnimation: [
-    {
-      properties: 'transition.slideRightBigIn',
-      options: { stagger: 500 }
-    },
-    {
-      properties: {
-        rotateZ: '180deg'
-      }
-    },
-    {
-      properties: {
-        rotateZ: '90deg'
-      }
-    },
-    //...
-  ],
-  //...
+],
+//...
 ```
 
 ### Events and Callback methods:
@@ -114,21 +114,21 @@ It's possible to determine set of effects, like:
 Backbone.Marionette animated region includes show and destroy callbacks. In some situations you may need to perform some action only after the animation will take place. So in your event aggregator or Marionette instance you can provide listeners for `AnimatedRegion`. You may listen two `region:shown` and `region:removed` actions.
 
 ```javascript
-  //...
-  initialize: function() {
-    this.listenTo(AnimatedRegion, 'region:shown', function(region) {
-      // region variable contains region which has beed rendered,
-      // you can manipulate it
-      if (region.options.name) {
-        console.log(region.options.name + ' has been rendered');
-      }
-    });
+//...
+initialize: function() {
+  this.listenTo(AnimatedRegion, 'region:shown', function(region) {
+    // region variable contains region which has beed rendered,
+    // you can manipulate it
+    if (region.options.name) {
+      console.log(region.options.name + ' has been rendered');
+    }
+  });
 
-    this.listenTo(AnimatedRegion, 'region:removed', function(region) {
-      console.log(region);
-    });
-  },
-  //...
+  this.listenTo(AnimatedRegion, 'region:removed', function(region) {
+    console.log(region);
+  });
+},
+//...
 ```
 
 ### Thanks to:

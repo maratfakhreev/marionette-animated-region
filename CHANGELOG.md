@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Updated README.md
 
 ## 1.1.1
 - Upgrade dependencies
