@@ -1,7 +1,7 @@
 {
   "name": "marionette-animated-region",
   "description": "Backbone.Marionette animated region based on Velocity.js animation library",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "main": "lib/marionette-animated-region.js",
   "author": {
     "name": "Marat Fakhreev",
