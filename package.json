@@ -31,22 +31,25 @@
   "scripts": {
     "compile": "babel --presets es2015 -d lib/ src/",
     "pretest": "npm run compile",
-    "test": "mocha-phantomjs test/index.html",
+    "lint": "eslint src",
+    "test": "mocha-phantomjs test/index.html && npm run lint",
     "prepublish": "npm run compile"
   },
   "dependencies": {
     "backbone": "^1.2.3",
     "backbone.marionette": "^2.4.4",
-    "jquery": "^2.1.4",
+    "jquery": "^2.2.1",
     "underscore": "^1.8.3",
     "velocity-animate": "^1.2.3"
   },
   "devDependencies": {
-    "babel-cli": "^6.2.0",
-    "babel-polyfill": "^6.3.13",
-    "babel-preset-es2015": "^6.1.18",
-    "chai": "^3.4.1",
-    "mocha": "^2.3.4",
-    "mocha-phantomjs": "^4.0.1"
+    "babel-cli": "^6.5.1",
+    "babel-eslint": "^5.0.0",
+    "babel-polyfill": "^6.5.0",
+    "babel-preset-es2015": "^6.5.0",
+    "chai": "^3.5.0",
+    "eslint": "^2.2.0",
+    "mocha": "^2.4.5",
+    "mocha-phantomjs": "^4.0.2"
   }
 }

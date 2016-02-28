@@ -32,8 +32,11 @@
   }
 })(($, _, Backbone, Marionette) => {
   function iterateOverAnimations(animations, callback) {
-    if (!animations.length) throw new Error('You must define showAnimation or hideAnimation objects. Ex: exRegion: { animation: { showAnimation: [{ //properties and options }, { ... }] } }');
-
+    /* eslint-disable */
+    if (!animations.length) {
+      throw new Error('You must define showAnimation or hideAnimation objects. Ex: exRegion: { animation: { showAnimation: [{ //properties and options }, { ... }] } }');
+    }
+    /* eslint-disable */
     for (let i = 0, length = animations.length - 1; i <= length; i++) {
       const animation = animations[i];
 

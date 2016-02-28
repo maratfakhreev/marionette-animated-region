@@ -1,10 +1,10 @@
 ## Backbone.Marionette animated region based on Velocity.js
 
-Animared region for Backbone.Marionette views based on Velocity.js animation library
+Animared region for Backbone.Marionette views based on Velocity.js animation library.
 
 [![Build Status](https://travis-ci.org/maratfakhreev/marionette-animated-region.svg?branch=master)](https://travis-ci.org/maratfakhreev/marionette-animated-region)
 
-Marionette-animated-region is convinient animated plugin based on [Velocity.js](http://velocityjs.org). It provides you to create beautiful animation effects for your Marionette views.
+Backbone.Marionette animated region is convinient animated plugin based on [Velocity.js](http://velocityjs.org). It provides you to create beautiful animation effects for your Marionette views.
 
 ### How to install:
 
@@ -25,12 +25,12 @@ First include Marionette and it dependencies and velocity.js lib.
 
 **Common JS:**
 ```javascript
-require('marionette-animated-region');
+var AnimatedRegion = require('marionette-animated-region');
 ```
 
 ### How to use:
 
-The main goodies that Marionette-animated-region uses only region properties and can work as simple Marionette region if you do not define animation. So it's flexible, fast and maximum safety.
+The main goodies that Backbone.Marionette animated region uses only region properties and can work as simple Marionette region if you do not define animation. So it's flexible, fast and maximum safety.
 
 ```javascript
   var LayoutView = Marionette.LayoutView.extend({
@@ -111,7 +111,7 @@ It's possible to determine set of effects, like:
 
 ### Events and Callback methods:
 
-Marionette-animated-region includes show and destroy callbacks. In some situations you may need to perform some action only after the animation will take place. So in your event aggregator or Marionette instance you can provide listeners for `AnimatedRegion`. You may listen two `region:shown` and `region:removed` actions.
+Backbone.Marionette animated region includes show and destroy callbacks. In some situations you may need to perform some action only after the animation will take place. So in your event aggregator or Marionette instance you can provide listeners for `AnimatedRegion`. You may listen two `region:shown` and `region:removed` actions.
 
 ```javascript
   //...

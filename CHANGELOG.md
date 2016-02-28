@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Upgrade dependencies
 
 ## 1.1.0
 - Fix issue with velocity animate modules (especially in commonjs)
