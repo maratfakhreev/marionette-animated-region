@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+
+## 1.1.2
 - Upgrade dependencies
 - Fix examples
 - Updated README.md
