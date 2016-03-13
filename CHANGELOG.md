@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Fix broken lint script
 
 ## 1.1.2
 - Upgrade dependencies
