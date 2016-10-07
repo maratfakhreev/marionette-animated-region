@@ -19,6 +19,7 @@
     <script src="../node_modules/jquery/dist/jquery.js"></script>
     <script src="../node_modules/underscore/underscore.js"></script>
     <script src="../node_modules/backbone/backbone.js"></script>
+    <script src="../node_modules/backbone.radio/build/backbone.radio.js"></script>
     <script src="../node_modules/backbone.marionette/lib/backbone.marionette.js"></script>
     <script src="../node_modules/velocity-animate/velocity.js"></script>
     <script src="../node_modules/velocity-animate/velocity.ui.js"></script>
@@ -41,16 +42,17 @@
     </script>
 
     <script type="text/javascript">
-      var ItemView = Marionette.ItemView.extend({
+      var ItemView = Marionette.View.extend({
         template: _.template($('#item_template').html(), {}),
       });
 
-      var LayoutView = Marionette.LayoutView.extend({
+      var LayoutView = Marionette.View.extend({
         template: _.template($('#layout_template').html(), {}),
 
         onRender: function() {
-          this.exampleRegion.show(new ItemView());
-          _.delay(_.bind(function() { this.exampleRegion.empty(); }, this), 5000);
+          var example = this.getRegion('example');
+          example.show(new ItemView());
+          _.delay(_.bind(function() { example.empty(); }, this), 5000);
         }
       });
     </script>
@@ -58,7 +60,7 @@
     <script type="text/javascript">
       var ExampleOneView = LayoutView.extend({
         regions: {
-          exampleRegion: {
+          example: {
             selector: '#example_region',
             regionClass: AnimatedRegion,
             animation: {
@@ -85,7 +87,7 @@
     <script type="text/javascript">
       var ExampleTwoView = LayoutView.extend({
         regions: {
-          exampleRegion: {
+          example: {
             selector: '#example_region',
             regionClass: AnimatedRegion,
             animation: {
@@ -110,9 +112,10 @@
     </script>
 
     <script type="text/javascript">
+      var channel = Backbone.Radio.channel('region');
       var ExampleThreeView = LayoutView.extend({
         regions: {
-          exampleRegion: {
+          example: {
             selector: '#example_region',
             regionClass: AnimatedRegion,
             name: 'Region with listeners',
@@ -139,13 +142,12 @@
         },
 
         initialize: function() {
-          this.listenTo(AnimatedRegion, 'region:shown', function(region) {
+          channel.on('region:shown', function(region) {
             if (region.options.name) {
               console.log(region.options.name + ' has been rendered');
             }
           });
-
-          this.listenTo(AnimatedRegion, 'region:removed', function(region) {
+          channel.on('region:removed', function(region) {
             console.log(region);
           });
         }

@@ -7,16 +7,16 @@ describe('layoutView', function() {
 
     this.itemMarkup = '<div id="item_view"><p>Heirloom tattooed scenester YOLO leggings normcore. 8-bit lo-fi distillery, street art forage beard mixtape waistcoat.</p></div>';
 
-    this.ItemView = Marionette.ItemView.extend({
+    this.ItemView = Marionette.View.extend({
       template: _.template(self.itemMarkup)
     });
 
     this.layoutMarkup = '<div id="example_region"></div>';
 
-    this.LayoutView = Marionette.LayoutView.extend({
+    this.LayoutView = Marionette.View.extend({
       template: _.template(self.layoutMarkup),
       regions: {
-        exampleRegion: {
+        example: {
           selector: '#example_region',
           regionClass: AnimatedRegion,
           animation: {
@@ -42,26 +42,27 @@ describe('layoutView', function() {
 
   describe('on instantiation', function() {
     it('should instantiate the specified region', function() {
-      expect(this.layoutView).to.have.property('exampleRegion');
+      expect(this.layoutView.regions).to.have.property('example');
     });
 
     it('regionClass should be an AnimatedRegion', function() {
-      expect(this.layoutView.regions.exampleRegion.regionClass).to.equal(AnimatedRegion);
+      expect(this.layoutView.regions.example.regionClass).to.equal(AnimatedRegion);
     });
 
     it('should have animation property', function() {
-      expect(this.layoutView.exampleRegion).to.have.property('animation');
+      expect(this.layoutView.regions.example).to.have.property('animation');
     });
 
     it('should have $el property is equal to region selector', function() {
-      expect(this.layoutView.exampleRegion.el).is.equal(this.layoutView.regions.exampleRegion.selector);
+      expect(this.layoutView.regions.example.selector).is.equal(this.layoutView.regions.example.selector);
     });
   });
 
   describe('on render', function() {
     beforeEach(function() {
       this.layoutView.render();
-      this.layoutView.exampleRegion.show(new this.ItemView());
+      this.example = this.layoutView.getRegion('example');
+      this.example.show(new this.ItemView());
     });
 
     it('should layout region has been rendered', function() {
@@ -76,8 +77,9 @@ describe('layoutView', function() {
   describe('on empty', function() {
     beforeEach(function() {
       this.layoutView.render();
-      this.layoutView.exampleRegion.show(new this.ItemView());
-      this.layoutView.exampleRegion.empty();
+      this.example = this.layoutView.getRegion('example');
+      this.example.show(new this.ItemView());
+      this.example.empty();
     });
 
     it('should item view has been removed', function(done) {
@@ -93,18 +95,21 @@ describe('layoutView', function() {
   describe('after render', function() {
     beforeEach(function() {
       var self = this;
+      var channel = Backbone.Radio.channel('region');
 
       this.hasShown = false;
-      this.layoutView.listenTo(AnimatedRegion, 'region:shown', function() {
+      this.layoutView.render();
+      this.example = this.layoutView.getRegion('example');
+
+      channel.on('region:shown', function() {
         self.hasShown = true;
       });
-      this.layoutView.render();
     });
 
     it('should trigger region:show', function(done) {
       var self = this;
 
-      this.layoutView.exampleRegion.show(new self.ItemView());
+      this.example.show(new self.ItemView());
 
       setTimeout(function() {
         expect(self.hasShown).to.be.true;
@@ -116,19 +121,22 @@ describe('layoutView', function() {
   describe('after empty', function() {
     beforeEach(function() {
       var self = this;
+      var channel = Backbone.Radio.channel('region');
 
       this.hasRemoved = false;
-      this.layoutView.listenTo(AnimatedRegion, 'region:removed', function() {
+      this.layoutView.render();
+      this.example = this.layoutView.getRegion('example');
+
+      channel.on('region:removed', function() {
         self.hasRemoved = true;
       });
-      this.layoutView.render();
     });
 
     it('should trigger region:removed', function(done) {
       var self = this;
 
-      this.layoutView.exampleRegion.show(new self.ItemView());
-      this.layoutView.exampleRegion.empty();
+      this.example.show(new self.ItemView());
+      this.example.empty();
 
       setTimeout(function() {
         expect(self.hasRemoved).to.be.true;

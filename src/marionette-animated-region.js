@@ -4,7 +4,7 @@
     module.exports = factory(
       window.jQuery = window.$ = require('jquery'),
       require('underscore'),
-      require('backbone'),
+      require('backbone.radio'),
       require('backbone.marionette'),
       require('../../velocity-animate/velocity'),
       require('../../velocity-animate/velocity.ui')
@@ -15,7 +15,7 @@
     define([
       'jquery',
       'underscore',
-      'backbone',
+      'backbone.radio',
       'backbone.marionette',
       '../../velocity-animate/velocity',
       '../../velocity-animate/velocity.ui'
@@ -26,11 +26,13 @@
     window.AnimatedRegion = factory(
       window.jQuery = window.$,
       window._,
-      window.Backbone,
+      window.Backbone.Radio,
       window.Marionette
     );
   }
-})(($, _, Backbone, Marionette) => {
+})(($, _, Radio, Marionette) => {
+  const regionChannel = Radio.channel('region');
+
   function iterateOverAnimations(animations, callback) {
     /* eslint-disable */
     if (!animations.length) {
@@ -51,18 +53,20 @@
   }
 
   function emptyRegion(view, options) {
-    const emptyOptions = options || {};
-    const preventDestroy = !!emptyOptions.preventDestroy;
-
     view.off('destroy', this.empty, this);
-    this.triggerMethod('before:empty', view);
+    this.triggerMethod('before:empty', this, view);
 
-    if (!preventDestroy) this._destroyView();
+    this._restoreEl();
 
-    this.triggerMethod('empty', view);
     delete this.currentView;
 
-    if (preventDestroy) this.$el.contents().detach();
+    if (!view._isDestroyed) {
+      this._removeView(view, options);
+      delete view._parent;
+    }
+
+    this.triggerMethod('empty', this, view);
+    return this;
   }
 
   class AnimatedRegion extends Marionette.Region {
@@ -78,7 +82,7 @@
 
       if (this.animation && this.animation.showAnimation) {
         iterateOverAnimations.call(this, this.animation.showAnimation, () => {
-          AnimatedRegion.trigger('region:shown', this);
+          regionChannel.trigger('region:shown', this);
         });
       }
       else {
@@ -86,10 +90,16 @@
       }
     }
 
-    empty(options) {
+    empty(options = { allowMissingEl: true }) {
       const view = this.currentView;
 
-      if (!view) return;
+      if (!view) {
+        if (this._ensureElement(options)) {
+          this.detachHtml();
+        }
+
+        return this;
+      }
 
       this.$el.velocity('stop');
 
@@ -97,7 +107,7 @@
         iterateOverAnimations.call(this, this.animation.hideAnimation, () => {
           emptyRegion.call(this, view, options);
           this.$el.removeAttr('style');
-          AnimatedRegion.trigger('region:removed', this);
+          regionChannel.trigger('region:removed', this);
         });
       }
       else {
@@ -107,8 +117,6 @@
       return this;
     }
   }
-
-  _.extend(AnimatedRegion, Backbone.Events);
 
   return AnimatedRegion;
 });

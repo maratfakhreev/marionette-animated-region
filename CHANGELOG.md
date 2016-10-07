@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+- Rewrite code for compability with Marionette 3.x.x
+- Upgrade dependencies
 
 ## 1.2.0
 - Upgrade dependencies
