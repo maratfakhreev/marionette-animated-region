@@ -17,6 +17,8 @@ First include Marionette and it dependencies and velocity.js lib.
 **Browser:**
 ```javascript
 <script>...</script>
+<script src="backbone.js" type="text/javascript"></script>
+<script src="backbone.radio.js" type="text/javascript"></script>
 <script src="backbone.marionette.js" type="text/javascript"></script>
 <script src="velocity.js"></script>
 <script src="velocity.ui.js"></script>
@@ -33,7 +35,7 @@ var AnimatedRegion = require('marionette-animated-region');
 The main goodies that Backbone.Marionette animated region uses only region properties and can work as simple Marionette region if you do not define animation. So it's flexible, fast and maximum safety.
 
 ```javascript
-var LayoutView = Marionette.LayoutView.extend({
+var LayoutView = Marionette.View.extend({
   regions: {
     animatedRegion: {
       selector: '#region_selector',
@@ -51,11 +53,11 @@ To use animation you must define `animation` object. It can includes two arrays 
 
 **Basic example:**
 ```javascript
-var LayoutView = Marionette.LayoutView.extend({
+var LayoutView = Marionette.View.extend({
   //...
 
   regions: {
-    exampleRegion: {
+    example: {
       selector: '#region_selector',
       regionClass: AnimatedRegion,
       animation: {
@@ -77,9 +79,10 @@ var LayoutView = Marionette.LayoutView.extend({
 
   onRender: function() {
     // this view will render with animation
-    this.animatedRegion.show(new Marionette.ItemView());
+    var example = this.getRegion('example');
+    example.show(new Marionette.ItemView());
     // and after 2 second remove with animation
-    _.delay(_.bind(function() { this.exampleRegion.empty(); }, this), 2000);
+    _.delay(_.bind(function() { example.empty(); }, this), 2000);
   }
 });
 
@@ -111,12 +114,13 @@ showAnimation: [
 
 ### Events and Callback methods:
 
-Backbone.Marionette animated region includes show and destroy callbacks. In some situations you may need to perform some action only after the animation will take place. So in your event aggregator or Marionette instance you can provide listeners for `AnimatedRegion`. You may listen two `region:shown` and `region:removed` actions.
+Backbone.Marionette animated region includes show and destroy callbacks. In some situations you may need to perform some action only after the animation will take place. So with Backbone.Radio you can provide specific global events `region:shown` and `region:removed` in `region` channel namespace for your Marionette instances.
 
 ```javascript
+var channel = Backbone.Radio.channel('region');
 //...
 initialize: function() {
-  this.listenTo(AnimatedRegion, 'region:shown', function(region) {
+  channel.on('region:shown', function(region) {
     // region variable contains region which has beed rendered,
     // you can manipulate it
     if (region.options.name) {
@@ -124,7 +128,7 @@ initialize: function() {
     }
   });
 
-  this.listenTo(AnimatedRegion, 'region:removed', function(region) {
+  channel.on('region:removed', function(region) {
     console.log(region);
   });
 },

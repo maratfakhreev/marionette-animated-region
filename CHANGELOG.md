@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Update README.md
 - Rewrite code for compability with Marionette 3.x.x
 - Upgrade dependencies
 
@@ -13,7 +14,7 @@
 ## 1.1.2
 - Upgrade dependencies
 - Fix examples
-- Updated README.md
+- Update README.md
 
 ## 1.1.1
 - Upgrade dependencies
@@ -23,4 +24,4 @@
 
 ## 1.0.1
 - Upgrade package.json
-- Updated README.md
+- Update README.md
