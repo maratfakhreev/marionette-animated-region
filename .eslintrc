@@ -1,0 +1,6 @@
+{
+  "extends": "eslint-config-fs",
+  "rules": {
+    "max-statements": [2, 15]
+  }
+}

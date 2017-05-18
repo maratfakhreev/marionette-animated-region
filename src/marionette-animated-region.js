@@ -1,4 +1,4 @@
-((factory) => {
+(factory => {
   if (typeof require === 'function' && typeof exports === 'object') {
     // Define as CommonJS export:
     module.exports = factory(
@@ -9,8 +9,7 @@
       require('../../velocity-animate/velocity'),
       require('../../velocity-animate/velocity.ui')
     );
-  }
-  else if (typeof define === 'function' && define.amd) {
+  } else if (typeof define === 'function' && define.amd) {
     // Define as AMD:
     define([
       'jquery',
@@ -20,8 +19,7 @@
       '../../velocity-animate/velocity',
       '../../velocity-animate/velocity.ui'
     ], factory);
-  }
-  else {
+  } else {
     // Browser:
     window.AnimatedRegion = factory(
       window.jQuery = window.$,
@@ -55,17 +53,16 @@
   function emptyRegion(view, options) {
     view.off('destroy', this.empty, this);
     this.triggerMethod('before:empty', this, view);
-
     this._restoreEl();
-
     delete this.currentView;
 
     if (!view._isDestroyed) {
-      this._removeView(view, options);
+      this.removeView(view, options);
       delete view._parent;
     }
 
     this.triggerMethod('empty', this, view);
+
     return this;
   }
 
@@ -84,8 +81,7 @@
         iterateOverAnimations.call(this, this.animation.showAnimation, () => {
           regionChannel.trigger('region:shown', this);
         });
-      }
-      else {
+      } else {
         this.$el.css({ display: 'block' });
       }
     }
@@ -101,6 +97,12 @@
         return this;
       }
 
+      const shouldDestroy = !options.preventDestroy;
+
+      if (!shouldDestroy) {
+        console.warn('Deprecation warning: The preventDestroy option is deprecated. Use Region#detachView');
+      }
+
       this.$el.velocity('stop');
 
       if (this.animation && this.animation.hideAnimation) {
@@ -109,8 +111,7 @@
           this.$el.removeAttr('style');
           regionChannel.trigger('region:removed', this);
         });
-      }
-      else {
+      } else {
         emptyRegion.call(this, view, options);
       }
 
