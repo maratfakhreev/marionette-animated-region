@@ -3,6 +3,7 @@
 ## Unreleased
 - Fix issue with removeView Marionette.Region method
 - Upgrade dependencies
+- Update README.md
 
 ## 2.0.0
 - Update README.md

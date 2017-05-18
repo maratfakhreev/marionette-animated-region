@@ -6,6 +6,8 @@ Animared region for Backbone.Marionette views based on Velocity.js animation lib
 
 Backbone.Marionette animated region is convinient animated plugin based on [Velocity.js](http://velocityjs.org). It provides you to create beautiful animation effects for your Marionette views.
 
+**Note:** for Backbone.Marionette 2.x.x use version 1.2.0 of the Marionette animated region.
+
 ### How to install:
 
 ```bash
