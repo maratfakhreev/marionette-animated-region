@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Move framework dependencies to peerDependencies
 
 ## 2.1.0
 - Update README.md
