@@ -29,6 +29,7 @@ First include Marionette and it dependencies and velocity.js lib.
 
 **Common JS:**
 ```javascript
+var Marionette = require('backbone.marionette');
 var AnimatedRegion = require('marionette-animated-region');
 ```
 

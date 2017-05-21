@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+
+## 2.2.0
 - Move framework dependencies to peerDependencies
 - Use babel-preset-env
 
